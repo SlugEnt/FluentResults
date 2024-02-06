@@ -1,6 +1,6 @@
 <img src="https://github.com/altmann/FluentResults/blob/master/resources/icons/FluentResults-Icon-64.png" alt="FluentResults"/>
 
-# FluentResults
+# SlugEnt.FluentResults
 
 [![Nuget downloads](https://img.shields.io/nuget/v/fluentresults.svg)](https://www.nuget.org/packages/FluentResults/)
 [![Nuget](https://img.shields.io/nuget/dt/fluentresults)](https://www.nuget.org/packages/FluentResults/)
@@ -9,10 +9,17 @@
 
 **FluentResults is a lightweight .NET library developed to solve a common problem. It returns an object indicating success or failure of an operation instead of throwing/using exceptions.**
 
+** This is a fork of FluentResults as of 2/6/2024.  The only changes to the base code at this time were:
+
+- Upgraded all projects to .Net 8 from Net 5 and NetStandard.
+- Changed the namespace to SlugEnt.FluentResults
+- Changed the version on all projects to 3.16.0.0
+- 
+
 You can install [FluentResults with NuGet](https://www.nuget.org/packages/FluentResults/):
 
 ```
-Install-Package FluentResults
+Install-Package SlugEnt.FluentResults
 ```
 
 > :heart: The most needed community feature is pushed to nuget: **[FluentResults.Extensions.AspNetCore](https://www.nuget.org/packages/FluentResults.Extensions.AspNetCore/)** Read [documentation](https://github.com/altmann/FluentResults/wiki/Returning-Result-Objects-from-ASP.NET-Core-Controller). Try it, test it, [give feedback](https://github.com/altmann/FluentResults/issues/149).
