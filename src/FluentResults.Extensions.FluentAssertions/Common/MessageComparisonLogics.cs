@@ -1,7 +1,7 @@
 ﻿using System;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults.Extensions.FluentAssertions
+namespace SlugEnt.FluentResults.Extensions.FluentAssertions
 {
     public static class MessageComparisonLogics
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     /// <summary>
     /// Objects from Success class cause no failed result

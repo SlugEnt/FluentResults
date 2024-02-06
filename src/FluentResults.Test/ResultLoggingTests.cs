@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using FluentResults.Test.Mocks;
+using SlugEnt.FluentResults.Test.Mocks;
 using Microsoft.Extensions.Logging;
 using Xunit;
 
-namespace FluentResults.Test
+namespace SlugEnt.FluentResults.Test
 {
     public class ResultLoggingTests
     {

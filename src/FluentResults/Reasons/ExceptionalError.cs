@@ -1,7 +1,7 @@
 ﻿using System;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     /// <summary>
     /// Error class which stores additionally the exception

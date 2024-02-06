@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     public partial class Result
     {

@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Samples.MediatR.MediatRLogic.Messages
+﻿namespace SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.Messages
 {
     public class QueryResponse
     {

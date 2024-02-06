@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentResults.Extensions.FluentAssertions
+namespace SlugEnt.FluentResults.Extensions.FluentAssertions
 {
     public static class ReasonExtensions
     {

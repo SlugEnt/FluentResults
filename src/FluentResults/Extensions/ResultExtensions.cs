@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace FluentResults.Extensions
+namespace SlugEnt.FluentResults.Extensions
 {
     public static class ResultExtensions
     {

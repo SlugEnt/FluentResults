@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using SlugEnt.FluentResults;
+using Microsoft.AspNetCore.Mvc;
 
-namespace FluentResults.Extensions.AspNetCore
+namespace SlugEnt.FluentResults.Extensions.AspNetCore
 {
     public interface IAspNetCoreResultEndpointProfile
     {

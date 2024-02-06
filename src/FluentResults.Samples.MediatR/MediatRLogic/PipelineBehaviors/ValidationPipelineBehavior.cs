@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 
-namespace FluentResults.Samples.MediatR.MediatRLogic.PipelineBehaviors
+namespace SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.PipelineBehaviors
 {
     public class ValidationPipelineBehavior<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse>

@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Logging;
 
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     public class DefaultLogger : IResultLogger
     {

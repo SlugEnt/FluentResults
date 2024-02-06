@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace FluentResults.Test
+namespace SlugEnt.FluentResults.Test
 {
     public class ErrorTests
     {

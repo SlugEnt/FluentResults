@@ -1,6 +1,6 @@
-using FluentResults.Extensions.AspNetCore;
+using SlugEnt.FluentResults.Extensions.AspNetCore;
 
-namespace FluentResults.Samples.WebHost
+namespace SlugEnt.FluentResults.Samples.WebHost
 {
     public class WeatherForecastDto
     {

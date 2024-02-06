@@ -1,7 +1,8 @@
 ﻿using System.Linq;
+using SlugEnt.FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FluentResults.Extensions.AspNetCore
+namespace SlugEnt.FluentResults.Extensions.AspNetCore
 {
     public class DefaultAspNetCoreResultEndpointProfile : IAspNetCoreResultEndpointProfile
     {
@@ -10,19 +11,23 @@ namespace FluentResults.Extensions.AspNetCore
             var result = context.Result;
 
             var errorDtos = result.Errors.Select(e => new ErrorDto
-                                                      {
-                                                          Message = e.Message
-                                                      });
+            {
+                Message = e.Message
+            });
 
             return new BadRequestObjectResult(errorDtos);
         }
 
-        public virtual ActionResult TransformOkNoValueResultToActionResult(OkResultToActionResultTransformationContext<Result> context)
+
+        public virtual ActionResult TransformOkNoValueResultToActionResult(
+            OkResultToActionResultTransformationContext<Result> context)
         {
             return new OkResult();
         }
 
-        public virtual ActionResult TransformOkValueResultToActionResult<T>(OkResultToActionResultTransformationContext<Result<T>> context)
+
+        public virtual ActionResult TransformOkValueResultToActionResult<T>(
+            OkResultToActionResultTransformationContext<Result<T>> context)
         {
             return new OkObjectResult(context.Result.ValueOrDefault);
         }

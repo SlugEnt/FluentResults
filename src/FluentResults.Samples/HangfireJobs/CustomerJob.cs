@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FluentResults.Samples.WebController;
+using SlugEnt.FluentResults.Samples.WebController;
 using Hangfire;
+using SlugEnt.FluentResults.Samples.WebController;
 
-namespace FluentResults.Samples.HangfireJobs
+namespace SlugEnt.FluentResults.Samples.HangfireJobs
 {
     public class CustomerJob
     {
-        public static void AddOrUpdateJob()
-        {
-            RecurringJob.AddOrUpdate(() => Dispatch(), Cron.Daily);
-        }
+        public static void AddOrUpdateJob() { RecurringJob.AddOrUpdate(() => Dispatch(), Cron.Daily); }
+
 
         public static Task<ResultDto> Dispatch()
         {

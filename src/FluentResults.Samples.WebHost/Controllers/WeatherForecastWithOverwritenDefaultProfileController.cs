@@ -1,7 +1,7 @@
-using FluentResults.Extensions.AspNetCore;
+using SlugEnt.FluentResults.Extensions.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FluentResults.Samples.WebHost.Controllers
+namespace SlugEnt.FluentResults.Samples.WebHost.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

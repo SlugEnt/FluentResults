@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Extensions.FluentAssertions.Test
+﻿namespace SlugEnt.FluentResults.Extensions.FluentAssertions.Test
 {
     internal class SomeReason : Error
     {

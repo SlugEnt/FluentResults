@@ -4,7 +4,7 @@ using Xunit;
 using Xunit.Sdk;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults.Extensions.FluentAssertions.Test.ResultTests
+namespace SlugEnt.FluentResults.Extensions.FluentAssertions.Test.ResultTests
 {
     public class BeSuccessTests
     {

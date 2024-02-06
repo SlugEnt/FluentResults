@@ -5,7 +5,7 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
-using FluentResults.Samples.MediatR.MediatRLogic.PipelineBehaviors;
+using SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.PipelineBehaviors;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace FluentResults.Samples.MediatR
+namespace SlugEnt.FluentResults.Samples.MediatR
 {
     public class Startup
     {

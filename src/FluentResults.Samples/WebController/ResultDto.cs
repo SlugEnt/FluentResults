@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FluentResults.Samples.WebController
+namespace SlugEnt.FluentResults.Samples.WebController
 {
     // The ResultDto look however you want
     // You can store error messages, warnings, success message, error code, ...

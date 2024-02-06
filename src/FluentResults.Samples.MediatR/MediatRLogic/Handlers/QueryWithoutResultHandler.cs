@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using FluentResults.Samples.MediatR.MediatRLogic.Messages;
+using SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.Messages;
 using MediatR;
 
-namespace FluentResults.Samples.MediatR.MediatRLogic.Handlers
+namespace SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.Handlers
 {
     public class QueryWithoutResultHandler : IRequestHandler<QueryWithoutResult, QueryResponse>
     {

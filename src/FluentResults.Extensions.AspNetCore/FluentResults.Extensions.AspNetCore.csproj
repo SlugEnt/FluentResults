@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <PackageId>FluentResults.Extensions.AspNetCore</PackageId>
+    <TargetFrameworks>net8</TargetFrameworks>
+    <PackageId>SlugEnt.FluentResults.Extensions.AspNetCore</PackageId>
     <Version>0.1.0.0</Version>
     <Authors>Michael Altmann</Authors>
     <Description>FluentResult Asp.Net Core integration</Description>
@@ -23,15 +23,19 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyName>SlugEnt.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
     
   <ItemGroup>
-    <PackageReference Include="FluentResults" Version="3.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\resources\icons\FluentResults-Icon-128.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentResults\FluentResults.csproj" />
   </ItemGroup>
 
 </Project>

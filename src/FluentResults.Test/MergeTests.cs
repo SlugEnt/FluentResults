@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace FluentResults.Test
+namespace SlugEnt.FluentResults.Test
 {
     public class MergeTests
     {

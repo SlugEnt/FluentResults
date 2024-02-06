@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Samples.DomainDrivenDesign
+﻿namespace SlugEnt.FluentResults.Samples.DomainDrivenDesign
 {
     public class CreateAddressCommandHandler
     {

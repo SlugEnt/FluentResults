@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FluentResults.Extensions;
+using SlugEnt.FluentResults.Extensions;
 
-namespace FluentResults.Test
+namespace SlugEnt.FluentResults.Test
 {
     public class CustomError : Error
     {

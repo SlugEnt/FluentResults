@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     public class ReasonStringBuilder
     {

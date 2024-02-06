@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using FluentResults.Samples.MediatR.MediatRLogic.Messages;
+using SlugEnt.FluentResults.Samples.MediatR.MediatRLogic.Messages;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace FluentResults.Samples.MediatR.Pages
+namespace SlugEnt.FluentResults.Samples.MediatR.Pages
 {
     public class IndexModel : PageModel
     {

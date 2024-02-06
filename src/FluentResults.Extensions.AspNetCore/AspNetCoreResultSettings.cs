@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Extensions.AspNetCore
+﻿namespace SlugEnt.FluentResults.Extensions.AspNetCore
 {
     public class AspNetCoreResultSettings
     {

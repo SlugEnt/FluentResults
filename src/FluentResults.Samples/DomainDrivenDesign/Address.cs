@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Samples.DomainDrivenDesign
+﻿namespace SlugEnt.FluentResults.Samples.DomainDrivenDesign
 {
     // ValueObject
     public class Address

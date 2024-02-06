@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     /// <summary>
     /// Objects from Error class cause a failed result
@@ -25,11 +25,13 @@ namespace FluentResults
         /// </summary>
         public List<IError> Reasons { get; }
 
+
         protected Error()
         {
             Metadata = new Dictionary<string, object>();
-            Reasons = new List<IError>();
+            Reasons  = new List<IError>();
         }
+
 
         /// <summary>
         /// Creates a new instance of <see cref="Error"/>
@@ -41,12 +43,14 @@ namespace FluentResults
             Message = message;
         }
 
+
         /// <summary>
         /// Creates a new instance of <see cref="Error"/>
         /// </summary>
         /// <param name="message">Discription of the error</param>
         /// <param name="causedBy">The root cause of the <see cref="Error"/></param>
-        public Error(string message, IError causedBy)
+        public Error(string message,
+                     IError causedBy)
             : this(message)
         {
             if (causedBy == null)
@@ -54,6 +58,7 @@ namespace FluentResults
 
             Reasons.Add(causedBy);
         }
+
 
         /// <summary>
         /// Set the root cause of the error
@@ -67,6 +72,7 @@ namespace FluentResults
             return this;
         }
 
+
         /// <summary>
         /// Set the root cause of the error
         /// </summary>
@@ -79,10 +85,12 @@ namespace FluentResults
             return this;
         }
 
+
         /// <summary>
         /// Set the root cause of the error
         /// </summary>
-        public Error CausedBy(string message, Exception exception)
+        public Error CausedBy(string message,
+                              Exception exception)
         {
             if (exception == null)
                 throw new ArgumentNullException(nameof(exception));
@@ -90,6 +98,7 @@ namespace FluentResults
             Reasons.Add(Result.Settings.ExceptionalErrorFactory(message, exception));
             return this;
         }
+
 
         /// <summary>
         /// Set the root cause of the error
@@ -99,6 +108,7 @@ namespace FluentResults
             Reasons.Add(Result.Settings.ErrorFactory(message));
             return this;
         }
+
 
         /// <summary>
         /// Set the root cause of the error
@@ -112,6 +122,7 @@ namespace FluentResults
             return this;
         }
 
+
         /// <summary>
         /// Set the root cause of the error
         /// </summary>
@@ -124,14 +135,17 @@ namespace FluentResults
             return this;
         }
 
+
         /// <summary>
         /// Set the metadata
         /// </summary>
-        public Error WithMetadata(string metadataName, object metadataValue)
+        public Error WithMetadata(string metadataName,
+                                  object metadataValue)
         {
             Metadata.Add(metadataName, metadataValue);
             return this;
         }
+
 
         /// <summary>
         /// Set the metadata
@@ -146,16 +160,18 @@ namespace FluentResults
             return this;
         }
 
+
         public override string ToString()
         {
             return new ReasonStringBuilder()
-                .WithReasonType(GetType())
-                .WithInfo(nameof(Message), Message)
-                .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
-                .WithInfo(nameof(Reasons), ReasonFormat.ErrorReasonsToString(Reasons))
-                .Build();
+                   .WithReasonType(GetType())
+                   .WithInfo(nameof(Message), Message)
+                   .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
+                   .WithInfo(nameof(Reasons), ReasonFormat.ErrorReasonsToString(Reasons))
+                   .Build();
         }
     }
+
 
     internal class ReasonFormat
     {
@@ -163,6 +179,7 @@ namespace FluentResults
         {
             return string.Join("; ", errorReasons);
         }
+
 
         public static string ReasonsToString(IReadOnlyCollection<IReason> errorReasons)
         {

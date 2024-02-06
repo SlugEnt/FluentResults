@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 
-namespace FluentResults.Extensions.FluentAssertions
+namespace SlugEnt.FluentResults.Extensions.FluentAssertions
 {
     public class AndWhichThatConstraint<TParentConstraint, TMatchedElement, TThatConstraint> : AndWhichConstraint<TParentConstraint, TMatchedElement>
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace FluentResults.Test.Mocks
+namespace SlugEnt.FluentResults.Test.Mocks
 {
     public class LoggingMock : IResultLogger
     {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace FluentResults.Samples.MediatR.Pages
+namespace SlugEnt.FluentResults.Samples.MediatR.Pages
 {
     public class PrivacyModel : PageModel
     {

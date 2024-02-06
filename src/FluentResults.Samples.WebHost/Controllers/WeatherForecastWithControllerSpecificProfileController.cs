@@ -1,13 +1,15 @@
-using FluentResults.Extensions;
-using FluentResults.Extensions.AspNetCore;
+using SlugEnt.FluentResults.Extensions;
+using SlugEnt.FluentResults.Extensions.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FluentResults.Samples.WebHost.Controllers
+
+namespace SlugEnt.FluentResults.Samples.WebHost.Controllers
 {
     public class RequestDto
     {
         public string FailureType { get; set; }
     }
+
 
     [ApiController]
     [Route("[controller]/[action]")]
@@ -15,36 +17,40 @@ namespace FluentResults.Samples.WebHost.Controllers
     {
         private readonly CustomAspNetCoreResultEndpointProfile _profile;
 
+
         public WeatherForecastWithControllerSpecificProfileController()
         {
             _profile = new CustomAspNetCoreResultEndpointProfile();
         }
+
 
         [HttpPost]
         public ActionResult<OkResponse<WeatherForecastDto>> Query(RequestDto request)
         {
             return Domain.DomainQuery(request.FailureType)
                          .Map(value => new WeatherForecastDto
-                                       {
-                                           Date = DateTime.Now,
-                                           Summary = "Hello World",
-                                           TemperatureC = value
-                                       })
+                         {
+                             Date         = DateTime.Now,
+                             Summary      = "Hello World",
+                             TemperatureC = value
+                         })
                          .ToActionResult(_profile);
         }
+
 
         [HttpPost]
         public async Task<ActionResult<OkResponse<WeatherForecastDto>>> QueryWithTask(RequestDto request)
         {
             return await Domain.DomainQueryAsync(request.FailureType)
                                .Map(value => new WeatherForecastDto
-                                             {
-                                                 Date = DateTime.Now,
-                                                 Summary = "Hello World",
-                                                 TemperatureC = value
-                                             })
+                               {
+                                   Date         = DateTime.Now,
+                                   Summary      = "Hello World",
+                                   TemperatureC = value
+                               })
                                .ToActionResult(_profile);
         }
+
 
         [HttpPost]
         public ActionResult<OkResponse> Command(RequestDto request)
@@ -53,12 +59,14 @@ namespace FluentResults.Samples.WebHost.Controllers
                          .ToActionResult(_profile);
         }
 
+
         [HttpPost]
         public async Task<ActionResult<OkResponse>> CommandWithTask(RequestDto request)
         {
             return await Domain.DomainCommandAsync(request.FailureType)
                                .ToActionResult(_profile);
         }
+
 
         //[HttpPost]
         //public async Task<ActionResult<PersonDto>> CreatePerson(CreatePersonCommand request)

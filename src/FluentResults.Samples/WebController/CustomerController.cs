@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Samples.WebController
+﻿namespace SlugEnt.FluentResults.Samples.WebController
 {
     // This is an ASP.NET WebApi Controller
     public class CustomerController

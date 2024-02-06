@@ -2,7 +2,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace FluentResults.Samples.MediatR
+namespace SlugEnt.FluentResults.Samples.MediatR
 {
     public class Program
     {

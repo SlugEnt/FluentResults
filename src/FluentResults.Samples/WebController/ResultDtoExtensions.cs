@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace FluentResults.Samples.WebController
+namespace SlugEnt.FluentResults.Samples.WebController
 {
     public static class ResultDtoExtensions
     {

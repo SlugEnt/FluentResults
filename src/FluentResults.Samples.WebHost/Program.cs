@@ -1,7 +1,7 @@
-using FluentResults.Extensions.AspNetCore;
-using FluentResults.Samples.WebHost.Controllers;
+using SlugEnt.FluentResults.Extensions.AspNetCore;
+using SlugEnt.FluentResults.Samples.WebHost.Controllers;
 
-namespace FluentResults.Samples.WebHost
+namespace SlugEnt.FluentResults.Samples.WebHost
 {
     public class Program
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     public interface IReason
     {

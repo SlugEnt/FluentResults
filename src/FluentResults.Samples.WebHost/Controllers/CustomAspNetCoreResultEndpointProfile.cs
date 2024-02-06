@@ -1,7 +1,8 @@
-using FluentResults.Extensions.AspNetCore;
+using SlugEnt.FluentResults.Extensions.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using SlugEnt.FluentResults;
 
-namespace FluentResults.Samples.WebHost.Controllers;
+namespace SlugEnt.FluentResults.Samples.WebHost.Controllers;
 
 public class CustomAspNetCoreResultEndpointProfile : DefaultAspNetCoreResultEndpointProfile
 {
@@ -12,6 +13,7 @@ public class CustomAspNetCoreResultEndpointProfile : DefaultAspNetCoreResultEndp
         if (result.HasError<UnauthorizedError>(out var unauthorizedErrors))
         {
 #if DEBUG
+
             // Here you can also use your custom dto to transfer information
             return new UnauthorizedObjectResult(unauthorizedErrors.First().Message);
 #endif
@@ -21,6 +23,7 @@ public class CustomAspNetCoreResultEndpointProfile : DefaultAspNetCoreResultEndp
         if (result.HasError<NotFoundError>(out var notFoundErrors))
         {
 #if DEBUG
+
             // Here you can also use your custom dto to transfer information
             return new NotFoundObjectResult(notFoundErrors.First().Message);
 #endif
@@ -35,18 +38,22 @@ public class CustomAspNetCoreResultEndpointProfile : DefaultAspNetCoreResultEndp
         return new StatusCodeResult(500);
     }
 
+
     private IEnumerable<BadRequestErrorDto> TransformDomainErrors(IEnumerable<DomainError> domainErrors)
     {
         return domainErrors.Select(e => new BadRequestErrorDto(e.Message, e.ErrorCode));
     }
 
+
     public class BadRequestErrorDto : ErrorDto
     {
         public string ErrorCode { get; }
 
-        public BadRequestErrorDto(string message, string errorCode)
+
+        public BadRequestErrorDto(string message,
+                                  string errorCode)
         {
-            Message = message;
+            Message   = message;
             ErrorCode = errorCode;
         }
     }

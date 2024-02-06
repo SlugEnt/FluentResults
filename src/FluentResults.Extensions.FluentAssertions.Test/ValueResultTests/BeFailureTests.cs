@@ -3,7 +3,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Sdk;
 
-namespace FluentResults.Extensions.FluentAssertions.Test.ValueResultTests
+namespace SlugEnt.FluentResults.Extensions.FluentAssertions.Test.ValueResultTests
 {
     public class BeFailureTests
     {

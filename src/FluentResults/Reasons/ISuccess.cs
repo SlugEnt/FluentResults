@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace FluentResults
+namespace SlugEnt.FluentResults
 {
     public interface ISuccess : IReason
     { }

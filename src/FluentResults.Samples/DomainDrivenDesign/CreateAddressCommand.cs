@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentResults.Samples.DomainDrivenDesign
+namespace SlugEnt.FluentResults.Samples.DomainDrivenDesign
 {
     public class CreateAddressCommand
     {

@@ -1,4 +1,4 @@
-﻿namespace FluentResults.Samples.WebHost.Controllers
+﻿namespace SlugEnt.FluentResults.Samples.WebHost.Controllers
 {
     public abstract class DomainError : Error
     {
