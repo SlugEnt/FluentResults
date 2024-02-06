@@ -9,11 +9,11 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>
-        Init version
-    </PackageReleaseNotes>
+		Initial Release of 3.16 version.  Upgrade to Net8 and conversion to SlugEnt.FluentResults.
+	</PackageReleaseNotes>
     <Copyright>Copyright 2022 (c) Michael Altmann. All rights reserved.</Copyright>
     <PackageTags>Result Results exception error handling FluentResults</PackageTags>
-    <PackageProjectUrl>https://github.com/altmann/FluentResults</PackageProjectUrl>
+	  <PackageProjectUrl>https://github.com/SlugEnt/FluentResults</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/altmann/FluentResults/master/resources/icons/FluentResults-Icon-128.png</PackageIconUrl>
     <PackageIcon>FluentResults-Icon-128.png</PackageIcon>
 
