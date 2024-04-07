@@ -75,19 +75,13 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Check if the result object contains an error from a specific type
         /// </summary>
-        public bool HasError<TError>(out IEnumerable<TError> result) where TError : IError
-        {
-            return HasError<TError>(e => true, out result);
-        }
+        public bool HasError<TError>(out IEnumerable<TError> result) where TError : IError { return HasError<TError>(e => true, out result); }
 
 
         /// <summary>
         /// Check if the result object contains an error from a specific type and with a specific condition
         /// </summary>
-        public bool HasError<TError>(Func<TError, bool> predicate) where TError : IError
-        {
-            return HasError<TError>(predicate, out _);
-        }
+        public bool HasError<TError>(Func<TError, bool> predicate) where TError : IError { return HasError<TError>(predicate, out _); }
 
 
         /// <summary>
@@ -131,19 +125,13 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Check if the result object contains an exception from a specific type
         /// </summary>
-        public bool HasException<TException>(out IEnumerable<IError> result) where TException : Exception
-        {
-            return HasException<TException>(error => true, out result);
-        }
+        public bool HasException<TException>(out IEnumerable<IError> result) where TException : Exception { return HasException<TException>(error => true, out result); }
 
 
         /// <summary>
         /// Check if the result object contains an exception from a specific type and with a specific condition
         /// </summary>
-        public bool HasException<TException>(Func<TException, bool> predicate) where TException : Exception
-        {
-            return HasException(predicate, out _);
-        }
+        public bool HasException<TException>(Func<TException, bool> predicate) where TException : Exception { return HasException(predicate, out _); }
 
 
         /// <summary>
@@ -169,19 +157,13 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Check if the result object contains a success from a specific type
         /// </summary>
-        public bool HasSuccess<TSuccess>(out IEnumerable<TSuccess> result) where TSuccess : ISuccess
-        {
-            return HasSuccess<TSuccess>(success => true, out result);
-        }
+        public bool HasSuccess<TSuccess>(out IEnumerable<TSuccess> result) where TSuccess : ISuccess { return HasSuccess<TSuccess>(success => true, out result); }
 
 
         /// <summary>
         /// Check if the result object contains a success from a specific type and with a specific condition
         /// </summary>
-        public bool HasSuccess<TSuccess>(Func<TSuccess, bool> predicate) where TSuccess : ISuccess
-        {
-            return HasSuccess(predicate, out _);
-        }
+        public bool HasSuccess<TSuccess>(Func<TSuccess, bool> predicate) where TSuccess : ISuccess { return HasSuccess(predicate, out _); }
 
 
         /// <summary>
@@ -285,10 +267,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Add multiple errors
         /// </summary>
-        public TResult WithErrors(IEnumerable<string> errors)
-        {
-            return WithReasons(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage)));
-        }
+        public TResult WithErrors(IEnumerable<string> errors) { return WithReasons(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage))); }
 
 
         /// <summary>
@@ -359,7 +338,9 @@ namespace SlugEnt.FluentResults
         {
             var logger = Result.Settings.Logger;
 
-            logger.Log(context, content, this,
+            logger.Log(context,
+                       content,
+                       this,
                        logLevel);
 
             return (TResult)this;
@@ -468,6 +449,16 @@ namespace SlugEnt.FluentResults
         {
             var reasonsString = Reasons.Any()
                                     ? $", Reasons='{ReasonFormat.ReasonsToString(Reasons)}'"
+                                    : string.Empty;
+
+            return $"Result: IsSuccess='{IsSuccess}'{reasonsString}";
+        }
+
+
+        public string ToStringWithLineFeeds()
+        {
+            var reasonsString = Reasons.Any()
+                                    ? $", Reasons='{ReasonFormat.ReasonsToString(Reasons, Environment.NewLine)}'"
                                     : string.Empty;
 
             return $"Result: IsSuccess='{IsSuccess}'{reasonsString}";

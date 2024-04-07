@@ -19,6 +19,7 @@ namespace SlugEnt.FluentResults.Test
             error.Metadata.Keys.Should().BeEmpty();
         }
 
+
         [Fact]
         public void CreateErrorCausedByErrorObject_ErrorWithReason()
         {
@@ -31,19 +32,23 @@ namespace SlugEnt.FluentResults.Test
             error.Reasons.First().Message.Should().Be("First error message");
         }
 
+
         [Fact]
         public void CreateErrorCausedBy2ErrorObjects_ErrorWithReason()
         {
             // Act
             var error = new Error("")
-                .CausedBy(new Error("First error message"))
-                .CausedBy(new Error("Second error message"));
+                        .CausedBy(new Error("First error message"))
+                        .CausedBy(new Error("Second error message"));
 
             // Assert
             error.Reasons.Should().HaveCount(2);
             error.Reasons[0].Message.Should().Be("First error message");
             error.Reasons[1].Message.Should().Be("Second error message");
+
+            Console.WriteLine(error.ToStringWithLineFeeds());
         }
+
 
         [Fact]
         public void CreateErrorCausedByErrorMessage_ErrorWithReason()
@@ -56,6 +61,7 @@ namespace SlugEnt.FluentResults.Test
             error.Reasons.Should().HaveCount(1);
             error.Reasons.First().Message.Should().Be("First error message");
         }
+
 
         [Fact]
         public void CreateErrorCausedByException_ErrorWithReason()
@@ -70,6 +76,7 @@ namespace SlugEnt.FluentResults.Test
             error.Reasons.First().Message.Should().Be("Invalid Operation Exception");
         }
 
+
         [Fact]
         public void CreateErrorCausedByMessageAndException_ErrorWithReason()
         {
@@ -82,6 +89,7 @@ namespace SlugEnt.FluentResults.Test
             error.Reasons.First().Should().BeOfType<ExceptionalError>();
             error.Reasons.First().Message.Should().Be("First error");
         }
+
 
         [Fact]
         public void CreateErrorWithMetadata_ErrorWithMetadata()
@@ -96,19 +104,21 @@ namespace SlugEnt.FluentResults.Test
             error.Metadata.Values.First().Should().Be("CustomerName");
         }
 
+
         [Fact]
         public void CreateErrorWithMultipleMetadata_ErrorWithMultipleMetadata()
         {
             // Act
             var error = new Error("")
-                .WithMetadata("Field", "CustomerName")
-                .WithMetadata("ErrorCode", "1.1");
+                        .WithMetadata("Field", "CustomerName")
+                        .WithMetadata("ErrorCode", "1.1");
 
             // Assert
             error.Metadata.Should().HaveCount(2);
             error.Metadata.Keys.First().Should().Be("Field");
             error.Metadata.Keys.Skip(1).Take(1).First().Should().Be("ErrorCode");
         }
+
 
         [Fact]
         public void CreateCustomErrorWithNoMessage_CustomErrorWithMessage()
@@ -122,10 +132,9 @@ namespace SlugEnt.FluentResults.Test
             error.Metadata.Keys.Should().BeEmpty();
         }
 
-        public class CustomError : Error
-        {
-            
-        }
+
+        public class CustomError : Error { }
+
 
         [Fact]
         public void CreateError_FromErrorImplicitConversion()
@@ -139,6 +148,7 @@ namespace SlugEnt.FluentResults.Test
             result.Reasons.Should().HaveCount(1);
             error.Reasons.First().Message.Should().Be("First error message");
         }
+
 
         [Fact]
         public void CreateErrors_FromListOfErrorsImplicitConversion()
@@ -156,7 +166,8 @@ namespace SlugEnt.FluentResults.Test
             result.Reasons[0].Message.Should().Be("First error message");
             result.Reasons[1].Message.Should().Be("Second error message");
         }
-        
+
+
         [Fact]
         public void CreateErrorOfT_FromErrorImplicitConversion()
         {
@@ -169,7 +180,8 @@ namespace SlugEnt.FluentResults.Test
             result.Reasons.Should().HaveCount(1);
             error.Reasons.First().Message.Should().Be("First error message");
         }
-        
+
+
         [Fact]
         public void CreateErrorOfT_FromListOfErrorsImplicitConversion()
         {

@@ -15,6 +15,8 @@
 - Changed the namespace to SlugEnt.FluentResults
 - Changed the version on all projects to 3.16.0.0
 - 
+Updates
+3.16.1 - Minor change to ToString to provide a ToStringWithLineFeeds to allow prettier printing of info.
 
 You can install [FluentResults with NuGet](https://www.nuget.org/packages/FluentResults/):
 

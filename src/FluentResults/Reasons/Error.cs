@@ -161,13 +161,33 @@ namespace SlugEnt.FluentResults
         }
 
 
-        public override string ToString()
+        public override string ToString() { return ToStringCustom(false); }
+
+
+        /// <summary>
+        /// Prints to a linefeed separated string.
+        /// </summary>
+        /// <returns></returns>
+        public string ToStringWithLineFeeds() { return ToStringCustom(true); }
+
+
+
+        /// <summary>
+        /// Prints either with semicolon separators or Linefeeds
+        /// </summary>
+        /// <returns></returns>
+        private string ToStringCustom(bool linefeeds = false)
         {
+            string separator = "; ";
+            if (linefeeds)
+                separator = Environment.NewLine;
+
             return new ReasonStringBuilder()
                    .WithReasonType(GetType())
+                   .WithLineFeeds()
                    .WithInfo(nameof(Message), Message)
-                   .WithInfo(nameof(Metadata), string.Join("; ", Metadata))
-                   .WithInfo(nameof(Reasons), ReasonFormat.ErrorReasonsToString(Reasons))
+                   .WithInfo(nameof(Metadata), string.Join(separator, Metadata))
+                   .WithInfo(nameof(Reasons), ReasonFormat.ErrorReasonsToString(Reasons, separator))
                    .Build();
         }
     }
@@ -175,15 +195,17 @@ namespace SlugEnt.FluentResults
 
     internal class ReasonFormat
     {
-        public static string ErrorReasonsToString(IReadOnlyCollection<IError> errorReasons)
+        public static string ErrorReasonsToString(IReadOnlyCollection<IError> errorReasons,
+                                                  string separator = "; ")
         {
-            return string.Join("; ", errorReasons);
+            return string.Join(separator, errorReasons);
         }
 
 
-        public static string ReasonsToString(IReadOnlyCollection<IReason> errorReasons)
+        public static string ReasonsToString(IReadOnlyCollection<IReason> errorReasons,
+                                             string separator = "; ")
         {
-            return string.Join("; ", errorReasons);
+            return string.Join(separator, errorReasons);
         }
     }
 }
