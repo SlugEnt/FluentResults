@@ -2,6 +2,7 @@
 using SlugEnt.FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace SlugEnt.FluentResults.Extensions.AspNetCore
 {
     public class DefaultAspNetCoreResultEndpointProfile : IAspNetCoreResultEndpointProfile
