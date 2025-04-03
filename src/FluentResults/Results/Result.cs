@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -8,8 +9,8 @@ namespace SlugEnt.FluentResults
 {
     public partial class Result : ResultBase<Result>
     {
-        public Result()
-        { }
+        public Result() { }
+
 
         /// <summary>
         /// Map all errors of the result via errorMapper
@@ -22,9 +23,10 @@ namespace SlugEnt.FluentResults
                 return this;
 
             return new Result()
-                .WithErrors(Errors.Select(errorMapper))
-                .WithSuccesses(Successes);
+                   .WithErrors(Errors.Select(errorMapper))
+                   .WithSuccesses(Successes);
         }
+
 
         /// <summary>
         /// Map all successes of the result via successMapper
@@ -34,16 +36,18 @@ namespace SlugEnt.FluentResults
         public Result MapSuccesses(Func<ISuccess, ISuccess> successMapper)
         {
             return new Result()
-                .WithErrors(Errors)
-                .WithSuccesses(Successes.Select(successMapper));
+                   .WithErrors(Errors)
+                   .WithSuccesses(Successes.Select(successMapper));
         }
+
 
         public Result<TNewValue> ToResult<TNewValue>(TNewValue newValue = default)
         {
             return new Result<TNewValue>()
-                .WithValue(IsFailed ? default : newValue)
-                .WithReasons(Reasons);
+                   .WithValue(IsFailed ? default : newValue)
+                   .WithReasons(Reasons);
         }
+
 
         /// <summary>
         /// Convert result to result with value that may fail.
@@ -58,7 +62,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = bind();
@@ -68,7 +72,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Convert result to result with value that may fail asynchronously.
         /// </summary>
@@ -82,7 +87,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await bind();
@@ -92,7 +97,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Convert result to result with value that may fail asynchronously.
         /// </summary>
@@ -106,7 +112,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await bind();
@@ -116,7 +122,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/>.
         /// </summary>
@@ -130,7 +137,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = action();
@@ -139,7 +146,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/> asynchronously.
         /// </summary>
@@ -153,7 +161,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await action();
@@ -162,7 +170,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/> asynchronously.
         /// </summary>
@@ -176,7 +185,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await action();
@@ -185,17 +194,13 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
-        public static implicit operator Result(Error error)
-        {
-            return Fail(error);
-        }
 
-        public static implicit operator Result(List<Error> errors)
-        {
-            return Fail(errors);
-        }
+
+        public static implicit operator Result(Error error) { return Fail(error); }
+
+        public static implicit operator Result(List<Error> errors) { return Fail(errors); }
     }
+
 
     public interface IResult<out TValue> : IResultBase
     {
@@ -210,10 +215,10 @@ namespace SlugEnt.FluentResults
         TValue ValueOrDefault { get; }
     }
 
+
     public class Result<TValue> : ResultBase<Result<TValue>>, IResult<TValue>
     {
-        public Result()
-        { }
+        public Result() { }
 
         private TValue _value;
 
@@ -241,6 +246,7 @@ namespace SlugEnt.FluentResults
             }
         }
 
+
         /// <summary>
         /// Set value
         /// </summary>
@@ -249,6 +255,7 @@ namespace SlugEnt.FluentResults
             Value = value;
             return this;
         }
+
 
         /// <summary>
         /// Map all errors of the result via errorMapper
@@ -261,9 +268,10 @@ namespace SlugEnt.FluentResults
                 return this;
 
             return new Result<TValue>()
-                .WithErrors(Errors.Select(errorMapper))
-                .WithSuccesses(Successes);
+                   .WithErrors(Errors.Select(errorMapper))
+                   .WithSuccesses(Successes);
         }
+
 
         /// <summary>
         /// Map all successes of the result via successMapper
@@ -273,10 +281,11 @@ namespace SlugEnt.FluentResults
         public Result<TValue> MapSuccesses(Func<ISuccess, ISuccess> successMapper)
         {
             return new Result<TValue>()
-                .WithValue(ValueOrDefault)
-                .WithErrors(Errors)
-                .WithSuccesses(Successes.Select(successMapper));
+                   .WithValue(ValueOrDefault)
+                   .WithErrors(Errors)
+                   .WithSuccesses(Successes.Select(successMapper));
         }
+
 
         /// <summary>
         /// Convert result with value to result without value
@@ -287,13 +296,12 @@ namespace SlugEnt.FluentResults
                 .WithReasons(Reasons);
         }
 
+
         /// <summary>
         /// Convert result with value to result with another value. Use valueConverter parameter to specify the value transformation logic.
         /// </summary>
-        public Result<TNewValue> ToResult<TNewValue>(Func<TValue, TNewValue> valueConverter = null)
-        {
-            return Map(valueConverter);
-        }
+        public Result<TNewValue> ToResult<TNewValue>(Func<TValue, TNewValue> valueConverter = null) { return Map(valueConverter); }
+
 
         /// <summary>
         /// Convert result with value to result with another value. Use valueConverter parameter to specify the value transformation logic.
@@ -307,6 +315,7 @@ namespace SlugEnt.FluentResults
                    .WithValue(IsFailed ? default : mapLogic(Value))
                    .WithReasons(Reasons);
         }
+
 
         /// <summary>
         /// Convert result with value to result with another value that may fail.
@@ -324,7 +333,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = bind(Value);
@@ -334,7 +343,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Convert result with value to result with another value that may fail asynchronously.
         /// </summary>
@@ -348,7 +358,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await bind(Value);
@@ -358,7 +368,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Convert result with value to result with another value that may fail asynchronously.
         /// </summary>
@@ -372,7 +383,7 @@ namespace SlugEnt.FluentResults
         {
             var result = new Result<TNewValue>();
             result.WithReasons(Reasons);
-            
+
             if (IsSuccess)
             {
                 var converted = await bind(Value);
@@ -382,6 +393,7 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
+
 
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/>.
@@ -405,7 +417,9 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
+
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/> asynchronously.
         /// </summary>
@@ -428,7 +442,8 @@ namespace SlugEnt.FluentResults
 
             return result;
         }
-        
+
+
         /// <summary>
         /// Execute an action which returns a <see cref="Result"/> asynchronously.
         /// </summary>
@@ -452,22 +467,20 @@ namespace SlugEnt.FluentResults
             return result;
         }
 
+
+
         public override string ToString()
         {
-            var baseString = base.ToString();
+            var baseString  = base.ToString();
             var valueString = ValueOrDefault.ToLabelValueStringOrEmpty(nameof(Value));
             return $"{baseString}, {valueString}";
         }
 
-        public static implicit operator Result<TValue>(Result result)
-        {
-            return result.ToResult<TValue>(default);
-        }
 
-        public static implicit operator Result<object>(Result<TValue> result)
-        {
-            return result.ToResult<object>(value => value);
-        }
+        public static implicit operator Result<TValue>(Result result) { return result.ToResult<TValue>(default); }
+
+        public static implicit operator Result<object>(Result<TValue> result) { return result.ToResult<object>(value => value); }
+
 
         public static implicit operator Result<TValue>(TValue value)
         {
@@ -476,16 +489,12 @@ namespace SlugEnt.FluentResults
 
             return Result.Ok(value);
         }
-        
-        public static implicit operator Result<TValue>(Error error)
-        {
-            return Result.Fail(error);
-        }
 
-        public static implicit operator Result<TValue>(List<Error> errors)
-        {
-            return Result.Fail(errors);
-        }
+
+        public static implicit operator Result<TValue>(Error error) { return Result.Fail(error); }
+
+        public static implicit operator Result<TValue>(List<Error> errors) { return Result.Fail(errors); }
+
 
         /// <summary>
         /// Deconstruct Result
@@ -493,12 +502,15 @@ namespace SlugEnt.FluentResults
         /// <param name="isSuccess"></param>
         /// <param name="isFailed"></param>
         /// <param name="value"></param>
-        public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue value)
+        public void Deconstruct(out bool isSuccess,
+                                out bool isFailed,
+                                out TValue value)
         {
             isSuccess = IsSuccess;
-            isFailed = IsFailed;
-            value = IsSuccess ? Value : default;
+            isFailed  = IsFailed;
+            value     = IsSuccess ? Value : default;
         }
+
 
         /// <summary>
         /// Deconstruct Result
@@ -507,13 +519,17 @@ namespace SlugEnt.FluentResults
         /// <param name="isFailed"></param>
         /// <param name="value"></param>
         /// <param name="errors"></param>
-        public void Deconstruct(out bool isSuccess, out bool isFailed, out TValue value, out List<IError> errors)
+        public void Deconstruct(out bool isSuccess,
+                                out bool isFailed,
+                                out TValue value,
+                                out List<IError> errors)
         {
             isSuccess = IsSuccess;
-            isFailed = IsFailed;
-            value = IsSuccess ? Value : default;
-            errors = IsFailed ? Errors : default;
+            isFailed  = IsFailed;
+            value     = IsSuccess ? Value : default;
+            errors    = IsFailed ? Errors : default;
         }
+
 
         private void ThrowIfFailed()
         {

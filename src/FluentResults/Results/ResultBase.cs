@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SlugEnt.FluentResults;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 // ReSharper disable once CheckNamespace
 namespace SlugEnt.FluentResults
@@ -33,11 +34,76 @@ namespace SlugEnt.FluentResults
         /// Get all successes
         /// </summary>
         List<ISuccess> Successes { get; }
+
+        public string ToStringForPrint(string resultName = "");
+        public string ToStringErrorOnly();
     }
 
 
+    /// <summary>
+    /// Provides a base class for Result and Result{TValue}
+    /// </summary>
     public abstract class ResultBase : IResultBase
     {
+        /// <summary>
+        /// Prints a user friendly explanation of the result, whether success or failure.
+        /// </summary>
+        /// <param name="resultName"></param>
+        /// <returns></returns>
+        public string ToStringForPrint(string resultName = "")
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (resultName != string.Empty)
+                sb.Append("Result: " + resultName + "  -->  IsSuccess=" + IsSuccess + Environment.NewLine);
+
+            foreach (var reason in Reasons)
+            {
+                sb.Append("  | Msg: " + reason.Message);
+
+                if (reason.GetType() == typeof(Error))
+                {
+                    Error error = (Error)reason;
+                    foreach (IError errorReason in error.Reasons)
+                    {
+                        sb.Append(Environment.NewLine + "    --> " + errorReason.Message);
+                    }
+                }
+
+                //foreach (var reason1 in (IError)reason) { }
+            }
+
+            return sb.ToString();
+        }
+
+
+        /// <summary>
+        /// Returns just the error messages from the Result.
+        /// </summary>
+        /// <returns></returns>
+        public string ToStringErrorOnly()
+        {
+            StringBuilder sb = new StringBuilder();
+
+
+            foreach (var reason in Reasons)
+            {
+                sb.Append("  |  " + reason.Message);
+
+                if (reason.GetType() == typeof(Error))
+                {
+                    Error error = (Error)reason;
+                    foreach (IError errorReason in error.Reasons)
+                    {
+                        sb.Append(Environment.NewLine + "    --> " + errorReason.Message);
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
@@ -452,6 +518,38 @@ namespace SlugEnt.FluentResults
                                     : string.Empty;
 
             return $"Result: IsSuccess='{IsSuccess}'{reasonsString}";
+        }
+
+
+        /// <summary>
+        /// Provides a "pretty formatted" version of the Result.
+        /// </summary>
+        /// <param name="resultName"></param>
+        /// <returns></returns>
+        public string ToStringForPrint(string resultName = "")
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (resultName != string.Empty)
+                sb.Append("Result: " + resultName + "  -->  IsSuccess=" + IsSuccess + Environment.NewLine);
+
+            foreach (var reason in Reasons)
+            {
+                sb.Append("  | Msg: " + reason.Message);
+
+                if (reason.GetType() == typeof(Error))
+                {
+                    Error error = (Error)reason;
+                    foreach (IError errorReason in error.Reasons)
+                    {
+                        sb.Append(Environment.NewLine + "    --> " + errorReason.Message);
+                    }
+                }
+
+                //foreach (var reason1 in (IError)reason) { }
+            }
+
+            return sb.ToString();
         }
 
 
