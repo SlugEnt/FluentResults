@@ -8,43 +8,13 @@ using System.Text;
 // ReSharper disable once CheckNamespace
 namespace SlugEnt.FluentResults
 {
-    public interface IResultBase
-    {
-        /// <summary>
-        /// Is true if Reasons contains at least one error
-        /// </summary>
-        bool IsFailed { get; }
-
-        /// <summary>
-        /// Is true if Reasons contains no errors
-        /// </summary>
-        bool IsSuccess { get; }
-
-        /// <summary>
-        /// Get all reasons (errors and successes)
-        /// </summary>
-        List<IReason> Reasons { get; }
-
-        /// <summary>
-        /// Get all errors
-        /// </summary>
-        List<IError> Errors { get; }
-
-        /// <summary>
-        /// Get all successes
-        /// </summary>
-        List<ISuccess> Successes { get; }
-
-        public string ToStringForPrint(string resultName = "");
-        public string ToStringErrorOnly();
-    }
-
 
     /// <summary>
     /// Provides a base class for Result and Result{TValue}
     /// </summary>
-    public abstract class ResultBase : IResultBase
+    public abstract partial class ResultBase : IResultBase
     {
+
         /// <summary>
         /// Prints a user friendly explanation of the result, whether success or failure.
         /// </summary>
@@ -285,281 +255,95 @@ namespace SlugEnt.FluentResults
             isFailed  = IsFailed;
             errors    = IsFailed ? Errors : default;
         }
-    }
 
-
-    public abstract class ResultBase<TResult> : ResultBase
-        where TResult : ResultBase<TResult>
-
-    {
-        /// <summary>
-        /// Add a reason (success or error)
-        /// </summary>
-        public TResult WithReason(IReason reason)
-        {
-            Reasons.Add(reason);
-            return (TResult)this;
-        }
 
 
         /// <summary>
-        /// Add multiple reasons (success or error)
+        /// Creates a new indent string with the requested number of spaces.
         /// </summary>
-        public TResult WithReasons(IEnumerable<IReason> reasons)
-        {
-            Reasons.AddRange(reasons);
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Add an error
-        /// </summary>
-        public TResult WithError(string errorMessage) { return WithError(Result.Settings.ErrorFactory(errorMessage)); }
-
-
-        /// <summary>
-        /// Add an error
-        /// </summary>
-        public TResult WithError(IError error) { return WithReason(error); }
-
-
-        /// <summary>
-        /// Add multiple errors
-        /// </summary>
-        public TResult WithErrors(IEnumerable<IError> errors) { return WithReasons(errors); }
-
-
-        /// <summary>
-        /// Add multiple errors
-        /// </summary>
-        public TResult WithErrors(IEnumerable<string> errors) { return WithReasons(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage))); }
-
-
-        /// <summary>
-        /// Add an error
-        /// </summary>
-        public TResult WithError<TError>()
-            where TError : IError, new()
-        {
-            return WithError(new TError());
-        }
-
-
-        /// <summary>
-        /// Add a success
-        /// </summary>
-        public TResult WithSuccess(string successMessage) { return WithSuccess(Result.Settings.SuccessFactory(successMessage)); }
-
-
-        /// <summary>
-        /// Add a success
-        /// </summary>
-        public TResult WithSuccess(ISuccess success) { return WithReason(success); }
-
-
-        /// <summary>
-        /// Add a success
-        /// </summary>
-        public TResult WithSuccess<TSuccess>()
-            where TSuccess : Success, new()
-        {
-            return WithSuccess(new TSuccess());
-        }
-
-
-        public TResult WithSuccesses(IEnumerable<ISuccess> successes)
-        {
-            foreach (var success in successes)
-            {
-                WithSuccess(success);
-            }
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult Log(LogLevel logLevel = LogLevel.Information) { return Log(string.Empty, null, logLevel); }
-
-
-        /// <summary>
-        /// Log the result. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult Log(string context,
-                           LogLevel logLevel = LogLevel.Information)
-        {
-            return Log(context, null, logLevel);
-        }
-
-
-        /// <summary>
-        /// Log the result with a specific logger context. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult Log(string context,
-                           string content,
-                           LogLevel logLevel = LogLevel.Information)
-        {
-            var logger = Result.Settings.Logger;
-
-            logger.Log(context,
-                       content,
-                       this,
-                       logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result with a typed context. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult Log<TContext>(LogLevel logLevel = LogLevel.Information) { return Log<TContext>(null, logLevel); }
-
-
-        /// <summary>
-        /// Log the result with a typed context. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult Log<TContext>(string content,
-                                     LogLevel logLevel = LogLevel.Information)
-        {
-            var logger = Result.Settings.Logger;
-
-            logger.Log<TContext>(content, this, logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result only when it is successful. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfSuccess(LogLevel logLevel = LogLevel.Information)
-        {
-            if (IsSuccess)
-                return Log(logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result with a specific logger context only when it is successful. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfSuccess(string context,
-                                    string content = null,
-                                    LogLevel logLevel = LogLevel.Information)
-        {
-            if (IsSuccess)
-                return Log(context, content, logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result with a typed context only when it is successful. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfSuccess<TContext>(string content = null,
-                                              LogLevel logLevel = LogLevel.Information)
-        {
-            if (IsSuccess)
-                return Log<TContext>(content, logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result only when it is failed. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfFailed(LogLevel logLevel = LogLevel.Error)
-        {
-            if (IsFailed)
-                return Log(logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result with a specific logger context only when it is failed. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfFailed(string context,
-                                   string content = null,
-                                   LogLevel logLevel = LogLevel.Error)
-        {
-            if (IsFailed)
-                return Log(context, content, logLevel);
-
-            return (TResult)this;
-        }
-
-
-        /// <summary>
-        /// Log the result with a typed context only when it is failed. Configure the logger via Result.Setup(..)
-        /// </summary>
-        public TResult LogIfFailed<TContext>(string content = null,
-                                             LogLevel logLevel = LogLevel.Error)
-        {
-            if (IsFailed)
-                return Log<TContext>(content, logLevel);
-
-            return (TResult)this;
-        }
-
-
-        public override string ToString()
-        {
-            var reasonsString = Reasons.Any()
-                                    ? $", Reasons='{ReasonFormat.ReasonsToString(Reasons)}'"
-                                    : string.Empty;
-
-            return $"Result: IsSuccess='{IsSuccess}'{reasonsString}";
-        }
-
-
-        /// <summary>
-        /// Provides a "pretty formatted" version of the Result.
-        /// </summary>
-        /// <param name="resultName"></param>
+        /// <param name="indent"></param>
         /// <returns></returns>
-        public string ToStringForPrint(string resultName = "")
+        internal static string CreateIndent(int indent)
         {
-            StringBuilder sb = new StringBuilder();
+            string newLine = "";
+            for (int i = 0; i < indent; i++)
+                newLine = newLine + " ";
+            return newLine;
+        }
 
-            if (resultName != string.Empty)
-                sb.Append("Result: " + resultName + "  -->  IsSuccess=" + IsSuccess + Environment.NewLine);
 
-            foreach (var reason in Reasons)
+
+        /// <summary>
+        /// Prints the Failed result to the Console.
+        /// </summary>
+        public void PrintErrorToConsole()
+        {
+            if (!IsFailed)
+                return;
+
+            int indent    = 0;
+            int indentAmt = 2;
+
+            foreach (IError err in Errors)
             {
-                sb.Append("  | Msg: " + reason.Message);
-
-                if (reason.GetType() == typeof(Error))
+                Console.WriteLine($"{CreateIndent(indent)}Error Msg:  {err.Message}");
+                if (err.Metadata.Count > 0)
                 {
-                    Error error = (Error)reason;
-                    foreach (IError errorReason in error.Reasons)
+                    indent += indentAmt;
+                    Console.WriteLine($"{CreateIndent(indent)}Metadata:");
+
+
+                    if (err.Metadata.Count > 0)
                     {
-                        sb.Append(Environment.NewLine + "    --> " + errorReason.Message);
+                        indent += indentAmt;
+                        foreach (KeyValuePair<string, object> kv in err.Metadata)
+                        {
+                            Console.WriteLine($"{CreateIndent(indent)}{kv.Key}    :  {kv.Value}");
+                        }
+
+                        indent -= indentAmt;
                     }
+
+
+                    Console.WriteLine("");
+                    indent -= indentAmt;
                 }
 
-                //foreach (var reason1 in (IError)reason) { }
+                if (err.Reasons.Count > 0)
+                {
+                    indent += indentAmt;
+                    foreach (IError reason in err.Reasons)
+                    {
+                        if (reason is ExceptionalError)
+                        {
+                            ExceptionalError er = (ExceptionalError)reason;
+                            Console.WriteLine($"{CreateIndent(indent)}Reason was an app Exception:  {reason.Message}");
+                            indent += indentAmt;
+                            Console.WriteLine($"{er.Exception.StackTrace}");
+                            Console.WriteLine($"{CreateIndent(indent)}StackTrace:  " + er.Exception.StackTrace);
+                            if (er.Exception.InnerException != null)
+                                Console.WriteLine($"{CreateIndent(indent)}Inner Except:  " + er.Exception.InnerException);
+                        }
+                        else
+                            Console.WriteLine($"{CreateIndent(indent)}Reason was app Error:  {reason.Message}");
+
+
+                        if (reason.Metadata.Count > 0)
+                        {
+                            indent += indentAmt;
+                            foreach (KeyValuePair<string, object> kv in reason.Metadata)
+                            {
+                                Console.WriteLine($"{CreateIndent(indent)}{kv.Key}    :  {kv.Value}");
+                            }
+
+                            indent -= indentAmt;
+                        }
+                    }
+
+                    indent -= indentAmt;
+                }
             }
-
-            return sb.ToString();
-        }
-
-
-        public string ToStringWithLineFeeds()
-        {
-            var reasonsString = Reasons.Any()
-                                    ? $", Reasons='{ReasonFormat.ReasonsToString(Reasons, Environment.NewLine)}'"
-                                    : string.Empty;
-
-            return $"Result: IsSuccess='{IsSuccess}'{reasonsString}";
         }
     }
-}
+    }
+

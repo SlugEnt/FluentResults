@@ -12,6 +12,31 @@ namespace SlugEnt.FluentResults
         public Result() { }
 
 
+        public Result AddMetaData(string key,
+                                object value)
+        {
+            if (Errors.Count > 0)
+            {
+                Errors[0].Metadata.Add(key, value);
+            }
+
+            return this;
+        }
+
+
+        /// <summary>
+        /// Adds an error object to the Result.  Actually adds it to Reasons.  This should be a supporting or subordinate error of the initial Result error.
+        /// </summary>
+        /// <param name="error"></param>
+        /// <returns></returns>
+        public Result AddError(Error error)
+        {
+            Reasons.Add(error);
+            
+            return this;
+        }
+
+
         /// <summary>
         /// Map all errors of the result via errorMapper
         /// </summary>

@@ -11,8 +11,8 @@
 
         public Result Handle(CreateAddressCommand command)
         {
-            // createAddressResult contains all error messages if address data is invalid
-            var createAddressResult = Address.Create(command.Street, command.Number, command.City);
+                // createAddressResult contains all error messages if address data is invalid
+                var createAddressResult = Address.Create(command.Street, command.Number, command.City);
 
             // Return failed result if address is invalid. Return ASAP
             if (createAddressResult.IsFailed)

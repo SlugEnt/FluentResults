@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8</TargetFrameworks>
     <PackageId>SlugEnt.FluentResults.Extensions.AspNetCore</PackageId>
-    <Version>3.17.3.0</Version>
+    <Version>3.17.3.2</Version>
     <Authors>Scott Herrmann, Michael Altmann</Authors>
     <Description>FluentResult Asp.Net Core integration</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
