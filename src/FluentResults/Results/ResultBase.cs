@@ -15,6 +15,44 @@ namespace SlugEnt.FluentResults
     public abstract partial class ResultBase : IResultBase
     {
 
+        public string ErrorTitle
+        {
+            get
+            {
+                if (!IsFailed) return string.Empty;
+                if (Reasons.Count == 0) return "No Reason was provided.";
+                return Reasons[0].Message;  
+            }
+        }
+
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() => ToStringSimplified();
+
+
+        /// <summary>
+        /// Prints the most readable and simplified Result Information.  
+        /// </summary>
+        /// <returns></returns>
+        public string ToStringSimplified()
+        {
+            StringBuilder sb = new StringBuilder(400);
+
+            if (IsFailed)
+                sb.Append("Fail: ");
+            else
+                sb.Append("Success: ");
+
+            // Print just the message for each reason.
+            foreach (IReason reason in Reasons)
+            {
+                sb.Append(reason.Message + " | ");
+            }
+            
+            return sb.ToString();
+        }
+
         /// <summary>
         /// Prints a user friendly explanation of the result, whether success or failure.
         /// </summary>

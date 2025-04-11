@@ -31,8 +31,15 @@ public interface IResultBase
     List<ISuccess> Successes { get; }
 
     public string ToStringForPrint(string resultName = "");
+
+    public string ToStringSimplified();
+
     public string ToStringErrorOnly();
 
+    public string ErrorTitle
+    {
+        get;
+    }
 
     /// <summary>
     /// Prints the Result that is in error to the console in a pretty format.

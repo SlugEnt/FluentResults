@@ -1,4 +1,5 @@
-﻿using SlugEnt.FluentResults;
+﻿using System.Reflection;
+using SlugEnt.FluentResults;
 
 namespace ConsoleTest
 {
@@ -12,20 +13,34 @@ namespace ConsoleTest
             if (r1.IsSuccess)
                 return;
             r1.PrintErrorToConsole();
+            Console.WriteLine($"^^^^^^^^^^^^ Error Title");
+            Console.WriteLine(r1.ErrorTitle);
 
             Console.WriteLine("*****************************************************************************************");
             Result r2 = TestException2();
             r2.PrintErrorToConsole();
+            Console.WriteLine("^^^^^^^^^^^^");
+            Console.WriteLine(r2.ErrorTitle);
+            Console.WriteLine("*****************************************************************************************");
 
             Console.WriteLine("*****************************************************************************************");
             Result r3 = TestException3();
             r3.PrintErrorToConsole();
+            Console.WriteLine($"^^^^^^^^^^^^ Error Title");
+            Console.WriteLine(r3.ErrorTitle);
+            Console.WriteLine("---------------------------------------------  Simplified and ToString");
+            Console.WriteLine(r3.ToStringSimplified());
+            Console.WriteLine(r3.ToString());
+            Console.WriteLine("---------------------------------------------");
 
             // Test adding an error to an existing result.
             Console.WriteLine("*****************************************************************************************");
             Console.WriteLine("*****   Adding an error object to the existing result.  *****");
             Result r4 = TestException3();
             r4.AddError(new Error("Supplier was closed this week"));
+            Console.WriteLine($"^^^^^^^^^^^^ Error Title");
+            Console.WriteLine(r4.ErrorTitle);
+
             r4.PrintErrorToConsole();
         }
 
