@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8</TargetFrameworks>
     <PackageId>SlugEnt.FluentResults.Extensions.FluentAssertions</PackageId>
-    <Version>3.17.3.4</Version>
+    <Version>3.18.0.2</Version>
     <Authors>Scott Herrmann, Michael Altmann</Authors>
     <Description>Asserting FluentResults objects with FluentAssertions</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

@@ -7,6 +7,8 @@ namespace SlugEnt.FluentResults
     {
         string Message { get; }
 
+        int ReasonCode { get; }
+        
         Dictionary<string, object> Metadata { get; }
     }
 }

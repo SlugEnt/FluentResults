@@ -112,6 +112,7 @@ namespace SlugEnt.FluentResults
         }
 
 
+
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
@@ -139,6 +140,21 @@ namespace SlugEnt.FluentResults
 
         protected ResultBase() { Reasons = new List<IReason>(); }
 
+
+        public int ReasonCode
+        {
+            get
+            {
+                if (IsFailed)
+                {
+                    if (Reasons.Count>0) return Reasons[0].ReasonCode;
+                    else
+                        return 0;
+                }
+
+                return 0;
+            }
+        }
 
         /// <summary>
         /// Check if the result object contains an error from a specific type

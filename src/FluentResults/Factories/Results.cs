@@ -47,36 +47,36 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error message. Internally an error object from the error factory is created. 
         /// </summary>
-        public static Result Fail(string errorMessage)
+        public static Result Fail(string errorMessage, int reasonCode = 0)
         {
             var result = new Result();
-            result.WithError(Settings.ErrorFactory(errorMessage));
+            result.WithError(Settings.ErrorFactory(errorMessage, reasonCode));
             return result;
         }
         
         /// <summary>
         /// Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created
         /// </summary>
-        public static Result Fail(IEnumerable<string> errorMessages)
+        public static Result Fail(IEnumerable<string> errorMessages, int reasonCode = 0)
         {
             if (errorMessages == null)
                 throw new ArgumentNullException(nameof(errorMessages), "The list of error messages cannot be null");
             
             var result = new Result();
-            result.WithErrors(errorMessages.Select(Settings.ErrorFactory));
+            result.WithErrors(errorMessages.Select(Settings.ErrorFactory), reasonCode);
             return result;
         }
 
         /// <summary>
         /// Creates a failed result with the given errors.
         /// </summary>
-        public static Result Fail(IEnumerable<IError> errors)
+        public static Result Fail(IEnumerable<IError> errors, int reasonCode = 0)
         {
             if (errors == null)
                 throw new ArgumentNullException(nameof(errors), "The list of errors cannot be null");
 
             var result = new Result();
-            result.WithErrors(errors);
+            result.WithErrors(errors, reasonCode);
             return result;
         }
 
@@ -103,17 +103,17 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error message. Internally an error object from the error factory is created. 
         /// </summary>
-        public static Result<TValue> Fail<TValue>(string errorMessage)
+        public static Result<TValue> Fail<TValue>(string errorMessage, int reasonCode = 0)
         {
             var result = new Result<TValue>();
-            result.WithError(Settings.ErrorFactory(errorMessage));
+            result.WithError(Settings.ErrorFactory(errorMessage,reasonCode));
             return result;
         }
         
         /// <summary>
         /// Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created. 
         /// </summary>
-        public static Result<TValue> Fail<TValue>(IEnumerable<string> errorMessages)
+        public static Result<TValue> Fail<TValue>(IEnumerable<string> errorMessages, int reasonCode = 0)
         {
             if (errorMessages == null)
                 throw new ArgumentNullException(nameof(errorMessages), "The list of error messages cannot be null");

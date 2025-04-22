@@ -12,6 +12,11 @@ namespace SlugEnt.FluentResults
         /// Message of the success
         /// </summary>
         public string Message { get; protected set; }
+        public int ReasonCode
+        {
+            get { return 0; }
+        }
+
 
         /// <summary>
         /// Metadata of the success

@@ -9,5 +9,6 @@ namespace SlugEnt.FluentResults
         /// Reasons of the error
         /// </summary>
         List<IError> Reasons { get; }
+
     }
 }

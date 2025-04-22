@@ -20,7 +20,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Factory to create an IError object. Used in all scenarios where an error is created within FluentResults. 
         /// </summary>
-        public Func<string, IError> ErrorFactory { get; set; }
+        public Func<string, int, IError> ErrorFactory { get; set; }
         
         /// <summary>
         /// Factory to create an IExceptionalError object. Used in all scenarios where an exceptional error is created within FluentResults. 
@@ -34,7 +34,7 @@ namespace SlugEnt.FluentResults
             Logger = new DefaultLogger();
             DefaultTryCatchHandler = ex => Result.Settings.ExceptionalErrorFactory(ex.Message, ex);
             SuccessFactory = successMessage => new Success(successMessage);
-            ErrorFactory = errorMessage => new Error(errorMessage);
+            ErrorFactory = (errorMessage, reasonCode) => new Error(errorMessage, reasonCode);
             ExceptionalErrorFactory = (errorMessage, exception) => new ExceptionalError(errorMessage ?? exception.Message, exception);
         }
 

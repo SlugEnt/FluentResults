@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using FluentResults.Reasons;
 using SlugEnt.FluentResults;
 
 namespace ConsoleTest
@@ -8,6 +9,11 @@ namespace ConsoleTest
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+
+            Result A1 = Result.Fail("Something wrong", ReasonCodes.ALREADY_EXISTS);
+            if (A1.ReasonCode != ReasonCodes.ALREADY_EXISTS)
+                Console.WriteLine("Reason Code Error code is not correct");
+
 
             Result r1 = TestException();
             if (r1.IsSuccess)

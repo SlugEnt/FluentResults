@@ -20,6 +20,14 @@ namespace SlugEnt.FluentResults
         /// </summary>
         public Dictionary<string, object> Metadata { get; }
 
+
+        /// <summary>
+        /// A code that can be used to more specifically categorize the error.  Such as "Id not found".  Might not be a hard error, but needs to be handled.
+        /// mainly used to eliminate needing to use strings for error codes and then interroperating them to find the real error.
+        /// </summary>
+        public int ReasonCode { get; protected set; }
+
+
         /// <summary>
         /// Get the reasons of an error
         /// </summary>
@@ -37,10 +45,12 @@ namespace SlugEnt.FluentResults
         /// Creates a new instance of <see cref="Error"/>
         /// </summary>
         /// <param name="message">Discription of the error</param>
-        public Error(string message)
+        /// <param name="reasonCode">The reason code to return.  Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.  </param>
+        public Error(string message, int reasonCode = 0)
             : this()
         {
             Message = message;
+            ReasonCode = reasonCode;
         }
 
 
@@ -50,14 +60,15 @@ namespace SlugEnt.FluentResults
         /// <param name="message">Discription of the error</param>
         /// <param name="causedBy">The root cause of the <see cref="Error"/></param>
         public Error(string message,
-                     IError causedBy)
-            : this(message)
+                     IError causedBy, int reasonCode = 0)
+            : this(message, reasonCode)
         {
             if (causedBy == null)
                 throw new ArgumentNullException(nameof(causedBy));
 
             Reasons.Add(causedBy);
         }
+
 
 
         /// <summary>
@@ -103,9 +114,9 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Set the root cause of the error
         /// </summary>
-        public Error CausedBy(string message)
+        public Error CausedBy(string message, int reasonCode = 0)
         {
-            Reasons.Add(Result.Settings.ErrorFactory(message));
+            Reasons.Add(Result.Settings.ErrorFactory(message,reasonCode));
             return this;
         }
 
@@ -126,12 +137,12 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Set the root cause of the error
         /// </summary>
-        public Error CausedBy(IEnumerable<string> errors)
+        public Error CausedBy(IEnumerable<string> errors, int reasonCode = 0)
         {
             if (errors == null)
                 throw new ArgumentNullException(nameof(errors));
 
-            Reasons.AddRange(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage)));
+            Reasons.AddRange(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage, reasonCode)));
             return this;
         }
 

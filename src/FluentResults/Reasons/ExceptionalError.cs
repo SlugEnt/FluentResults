@@ -14,13 +14,24 @@ namespace SlugEnt.FluentResults
         public Exception Exception { get; }
 
 
-        public ExceptionalError(Exception exception)
-            : this(exception.Message, exception) { }
+        /// <summary>
+        /// Creates a new instance of <see cref="ExceptionalError"/>
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <param name="reasonCode">The reason code to return.  Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.  </param>
+        public ExceptionalError(Exception exception, int reasonCode = 0)
+            : this(exception.Message, exception, reasonCode) { }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="exception"></param>
+        /// <param name="reasonCode">The reason code to return.  Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.  </param>
         public ExceptionalError(string message,
-                                Exception exception)
-            : base(message)
+                                Exception exception, int reasonCode = 0)
+            : base(message, reasonCode)
         {
             Exception = exception;
         }
