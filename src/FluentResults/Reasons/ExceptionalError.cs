@@ -19,7 +19,7 @@ namespace SlugEnt.FluentResults
         /// </summary>
         /// <param name="exception"></param>
         /// <param name="reasonCode">The reason code to return.  Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.  </param>
-        public ExceptionalError(Exception exception, int reasonCode = 0)
+        public ExceptionalError(Exception exception, EnumReasonCode reasonCode = 0)
             : this(exception.Message, exception, reasonCode) { }
 
 
@@ -30,7 +30,7 @@ namespace SlugEnt.FluentResults
         /// <param name="exception"></param>
         /// <param name="reasonCode">The reason code to return.  Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.  </param>
         public ExceptionalError(string message,
-                                Exception exception, int reasonCode = 0)
+                                Exception exception, EnumReasonCode reasonCode = 0)
             : base(message, reasonCode)
         {
             Exception = exception;

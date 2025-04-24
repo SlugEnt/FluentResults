@@ -141,7 +141,7 @@ namespace SlugEnt.FluentResults
         protected ResultBase() { Reasons = new List<IReason>(); }
 
 
-        public int ReasonCode
+        public EnumReasonCode ReasonCode
         {
             get
             {
@@ -149,7 +149,7 @@ namespace SlugEnt.FluentResults
                 {
                     if (Reasons.Count>0) return Reasons[0].ReasonCode;
                     else
-                        return 0;
+                        return EnumReasonCode.NotSpecified;
                 }
 
                 return 0;

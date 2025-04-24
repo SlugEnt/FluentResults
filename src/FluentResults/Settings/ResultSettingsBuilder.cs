@@ -20,7 +20,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Factory to create an IError object. Used in all scenarios where an error is created within FluentResults. 
         /// </summary>
-        public Func<string, int, IError> ErrorFactory { get; set; }
+        public Func<string, EnumReasonCode, IError> ErrorFactory { get; set; }
         
         /// <summary>
         /// Factory to create an IExceptionalError object. Used in all scenarios where an exceptional error is created within FluentResults. 

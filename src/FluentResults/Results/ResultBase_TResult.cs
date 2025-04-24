@@ -37,7 +37,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Add an error
         /// </summary>
-        public TResult WithError(string errorMessage, int reasonCode = 0) { return WithError(Result.Settings.ErrorFactory(errorMessage, reasonCode)); }
+        public TResult WithError(string errorMessage, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified) { return WithError(Result.Settings.ErrorFactory(errorMessage, reasonCode)); }
 
 
         /// <summary>
@@ -49,13 +49,13 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Add multiple errors
         /// </summary>
-        public TResult WithErrors(IEnumerable<IError> errors, int reasonCode = 0) { return WithReasons(errors); }
+        public TResult WithErrors(IEnumerable<IError> errors, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified) { return WithReasons(errors); }
 
 
         /// <summary>
         /// Add multiple errors
         /// </summary>
-        public TResult WithErrors(IEnumerable<string> errors, int reasonCode = 0) { return WithReasons(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage,reasonCode))); }
+        public TResult WithErrors(IEnumerable<string> errors, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified) { return WithReasons(errors.Select(errorMessage => Result.Settings.ErrorFactory(errorMessage,reasonCode))); }
 
 
         /// <summary>

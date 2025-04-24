@@ -7,7 +7,7 @@ namespace SlugEnt.FluentResults
     {
         string Message { get; }
 
-        int ReasonCode { get; }
+        EnumReasonCode ReasonCode { get; }
         
         Dictionary<string, object> Metadata { get; }
     }

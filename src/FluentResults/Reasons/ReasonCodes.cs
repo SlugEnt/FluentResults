@@ -1,8 +1,11 @@
-﻿namespace FluentResults.Reasons;
+﻿using System;
+
+namespace FluentResults.Reasons;
 
 /// <summary>
 /// Codes 0-999 are reserved for use by the Result Class.  Define your own above this range.
 /// </summary>
+[Obsolete]
 public static class ReasonCodes
 {
     /// <summary>

@@ -11,7 +11,7 @@ namespace SlugEnt.FluentResults
 
         public Func<string, ISuccess> SuccessFactory { get; set; }
 
-        public Func<string, int, IError> ErrorFactory { get; set; }
+        public Func<string, EnumReasonCode, IError> ErrorFactory { get; set; }
 
         public Func<string, Exception, IExceptionalError> ExceptionalErrorFactory { get; set; }
     }

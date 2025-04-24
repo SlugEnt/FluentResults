@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>.Net8</TargetFrameworks>
     <PackageId>SlugEnt.FluentResults</PackageId>
-    <Version>3.18.0.2</Version>
+    <Version>3.18.0.3</Version>
     <Authors>Scott Herrmann, Michael Altmann</Authors>
     <Description>A lightweight Result object implementation for .NET</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -47,7 +48,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error message. Internally an error object from the error factory is created. 
         /// </summary>
-        public static Result Fail(string errorMessage, int reasonCode = 0)
+        public static Result Fail(string errorMessage, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified)                 
         {
             var result = new Result();
             result.WithError(Settings.ErrorFactory(errorMessage, reasonCode));
@@ -57,20 +58,20 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created
         /// </summary>
-        public static Result Fail(IEnumerable<string> errorMessages, int reasonCode = 0)
+        public static Result Fail(IEnumerable<string> errorMessages, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified)
         {
             if (errorMessages == null)
                 throw new ArgumentNullException(nameof(errorMessages), "The list of error messages cannot be null");
             
             var result = new Result();
-            result.WithErrors(errorMessages.Select(Settings.ErrorFactory), reasonCode);
+            result.WithErrors(errorMessages.Select((msg,reason) => Settings.ErrorFactory(msg,reasonCode)));
             return result;
         }
 
         /// <summary>
         /// Creates a failed result with the given errors.
         /// </summary>
-        public static Result Fail(IEnumerable<IError> errors, int reasonCode = 0)
+        public static Result Fail(IEnumerable<IError> errors, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified)
         {
             if (errors == null)
                 throw new ArgumentNullException(nameof(errors), "The list of errors cannot be null");
@@ -103,7 +104,7 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error message. Internally an error object from the error factory is created. 
         /// </summary>
-        public static Result<TValue> Fail<TValue>(string errorMessage, int reasonCode = 0)
+        public static Result<TValue> Fail<TValue>(string errorMessage, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified)
         {
             var result = new Result<TValue>();
             result.WithError(Settings.ErrorFactory(errorMessage,reasonCode));
@@ -113,13 +114,14 @@ namespace SlugEnt.FluentResults
         /// <summary>
         /// Creates a failed result with the given error messages. Internally a list of error objects from the error factory is created. 
         /// </summary>
-        public static Result<TValue> Fail<TValue>(IEnumerable<string> errorMessages, int reasonCode = 0)
+        public static Result<TValue> Fail<TValue>(IEnumerable<string> errorMessages, EnumReasonCode reasonCode = EnumReasonCode.NotSpecified)
         {
             if (errorMessages == null)
                 throw new ArgumentNullException(nameof(errorMessages), "The list of error messages cannot be null");
             
             var result = new Result<TValue>();
-            result.WithErrors(errorMessages.Select(Settings.ErrorFactory));
+            result.WithErrors(errorMessages.Select((msg,
+                                                    reason) => Settings.ErrorFactory(msg, reasonCode)));
             return result;
         }
 

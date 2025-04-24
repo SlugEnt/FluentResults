@@ -10,8 +10,8 @@ namespace ConsoleTest
         {
             Console.WriteLine("Hello, World!");
 
-            Result A1 = Result.Fail("Something wrong", ReasonCodes.ALREADY_EXISTS);
-            if (A1.ReasonCode != ReasonCodes.ALREADY_EXISTS)
+            Result A1 = Result.Fail("Something wrong", EnumReasonCode.AlreadyExists);
+            if (A1.ReasonCode != EnumReasonCode.AlreadyExists)
                 Console.WriteLine("Reason Code Error code is not correct");
 
 

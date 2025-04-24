@@ -12,9 +12,9 @@ namespace SlugEnt.FluentResults
         /// Message of the success
         /// </summary>
         public string Message { get; protected set; }
-        public int ReasonCode
+        public EnumReasonCode ReasonCode
         {
-            get { return 0; }
+            get { return EnumReasonCode.NotSpecified; }
         }
 
 
